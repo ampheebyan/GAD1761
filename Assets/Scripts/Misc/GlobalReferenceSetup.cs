@@ -4,15 +4,16 @@ using UnityEngine;
 
 public class GlobalReferenceSetup : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
+    public MovementHandler movementHandler;
+    public InteractionHandler interactionHandler;
+    public ExtPlayer extendedPlayer;
 
-    // Update is called once per frame
-    void Update()
-    {
-        
+    public void Awake() {
+        // Don't continue if they're broken.
+        if(movementHandler == null || interactionHandler == null || extendedPlayer == null) throw new System.Exception("Something is broken here."); 
+        // Set global references.
+        GlobalReferences.movementHandler = movementHandler;
+        GlobalReferences.interactionHandler = interactionHandler;
+        GlobalReferences.extendedPlayer = extendedPlayer;
     }
 }

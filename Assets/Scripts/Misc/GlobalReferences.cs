@@ -1,18 +1,7 @@
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-
-public class GlobalReferences : MonoBehaviour
+public static class GlobalReferences
 {
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
+    // This exists primarily to hold global references.
+    public static MovementHandler movementHandler;
+    public static InteractionHandler interactionHandler;
+    public static ExtPlayer extendedPlayer;
 }
