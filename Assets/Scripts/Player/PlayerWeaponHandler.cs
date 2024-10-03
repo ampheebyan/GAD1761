@@ -19,4 +19,11 @@ public class PlayerWeaponHandler : MonoBehaviour
             break;
         }
     }
+
+    public void Update() {
+        if(Input.GetKeyDown(KeyCode.R)) {
+            BaseWeapon current = weapons[currentWeapon];
+            current.Reload();
+        }
+    }
 }

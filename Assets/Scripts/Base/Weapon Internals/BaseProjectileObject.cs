@@ -12,16 +12,33 @@ public class BaseProjectileObject : MonoBehaviour
     public int maxBounces = 2;
     private int currentBounces = 0;
     private BaseWeapon weapon;
-
+    private float aliveTime;
+    public float maxAliveTime;
     public void Awake() {
         currentBounces = 0;
+        aliveTime = 0;
+    }
+
+    public void Update() {
+        aliveTime += Time.deltaTime;
+
+        if(aliveTime >= maxAliveTime) {
+            Destroy(gameObject);
+        }
     }
 
     public void OnCollisionEnter(Collision other) {
+        onHit.Invoke(other);
+
         if(currentBounces < maxBounces) {
+            if(other.gameObject.CompareTag("Player")) {
+                weapon.HandleDamage(other.collider);
+                Destroy(gameObject);
+                return;
+            } 
             currentBounces += 1;
         } else {
-            onHit.Invoke(other);
+            weapon.HandleDamage(other.collider);            
             Destroy(gameObject);
         }
     }

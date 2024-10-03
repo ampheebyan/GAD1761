@@ -11,8 +11,8 @@ public class BaseWeapon : MonoBehaviour
     }
 
     public weaponType type;
-    
-    public float fireRate = 1f;
+
+    public float fireRate = 0.05f;
     public float damageOutput = 2f;
     public float reloadTime = 1f;
 
@@ -23,12 +23,14 @@ public class BaseWeapon : MonoBehaviour
     public UnityEvent onStartReload;
     public UnityEvent onFinishReload;
 
-    private float delta;
+    public float delay = 0;
+    [SerializeField]
     private int currentAmmo = 0;
 
     private void Awake()
     {
         currentAmmo = maxAmmo;
+        delay = fireRate;
     }
 
     public void HandleDamage(Collider other) {
@@ -38,22 +40,30 @@ public class BaseWeapon : MonoBehaviour
             }
         }
     }
+        
+    #region Fire Rate
+    public void Update() {
+        if(delay < fireRate) {
+            delay += Time.deltaTime;
+        }
+    }
+    #endregion
 
     #region Physical Projectile
     public GameObject projectile;
     public float firingForce = 2f;
     public void ShootProjectile() {
-        delta += Time.deltaTime;
-
-        if(delta < fireRate) {
-            GameObject temporaryProjectile = (GameObject) Instantiate(projectile, tip.position, projectile.transform.rotation);
+        if(delay >= fireRate) {
+            delay = 0;
+            if(currentAmmo == 0) return;
+            currentAmmo = Mathf.Clamp(currentAmmo - 1, 0, maxAmmo);
+            GameObject temporaryProjectile = (GameObject) Instantiate(projectile, tip.position, tip.rotation);
             temporaryProjectile.SetActive(true);
             if(temporaryProjectile.TryGetComponent<BaseProjectileObject>(out BaseProjectileObject obj))
                 obj.SetBase(this);
 
             Rigidbody temporaryRigidbody = temporaryProjectile.GetComponent<Rigidbody>();
-            temporaryRigidbody.AddForce(firingForce * Vector3.forward, ForceMode.Impulse);
-            delta = 0f;
+            temporaryRigidbody.AddForce(firingForce * tip.transform.forward, ForceMode.Impulse);
         }
     }
     #endregion
