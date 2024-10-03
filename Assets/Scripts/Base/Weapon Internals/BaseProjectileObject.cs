@@ -5,13 +5,13 @@ using UnityEngine.Events;
 
 public class BaseProjectileObject : MonoBehaviour
 {
-    public void SetBase(BaseProjectile baseProjectile) {
+    public void SetBase(BaseWeapon baseProjectile) {
         weapon = baseProjectile;
     }
     public UnityEvent<Collision> onHit;
     public int maxBounces = 2;
-    public int currentBounces = 0;
-    public BaseProjectile weapon;
+    private int currentBounces = 0;
+    private BaseWeapon weapon;
 
     public void Awake() {
         currentBounces = 0;

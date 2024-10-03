@@ -5,6 +5,13 @@ using UnityEngine.Events;
 
 public class BaseWeapon : MonoBehaviour
 {
+    public enum weaponType {
+        physical,
+        hitscan
+    }
+
+    public weaponType type;
+    
     public float fireRate = 1f;
     public float damageOutput = 2f;
     public float reloadTime = 1f;
@@ -12,10 +19,12 @@ public class BaseWeapon : MonoBehaviour
     public Transform tip;
 
     public int maxAmmo = 30;
-    private int currentAmmo = 0;
 
     public UnityEvent onStartReload;
     public UnityEvent onFinishReload;
+
+    private float delta;
+    private int currentAmmo = 0;
 
     private void Awake()
     {
@@ -29,6 +38,29 @@ public class BaseWeapon : MonoBehaviour
             }
         }
     }
+
+    #region Physical Projectile
+    public GameObject projectile;
+    public float firingForce = 2f;
+    public void ShootProjectile() {
+        delta += Time.deltaTime;
+
+        if(delta < fireRate) {
+            GameObject temporaryProjectile = (GameObject) Instantiate(projectile, tip.position, projectile.transform.rotation);
+            temporaryProjectile.SetActive(true);
+            if(temporaryProjectile.TryGetComponent<BaseProjectileObject>(out BaseProjectileObject obj))
+                obj.SetBase(this);
+
+            Rigidbody temporaryRigidbody = temporaryProjectile.GetComponent<Rigidbody>();
+            temporaryRigidbody.AddForce(firingForce * Vector3.forward, ForceMode.Impulse);
+            delta = 0f;
+        }
+    }
+    #endregion
+
+    #region Hitscan
+
+    #endregion
 
     #region Ammo Handling
     public int GetCurrentAmmo()
