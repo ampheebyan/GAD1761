@@ -134,6 +134,7 @@ public class MovementHandler : MonoBehaviour
 
             isMoving[0] = motion.x != 0 ||motion.z != 0;
 
+            Physics.SyncTransforms();
             characterController.Move(motion);
     }
 
