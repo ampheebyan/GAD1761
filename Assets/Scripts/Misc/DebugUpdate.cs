@@ -6,12 +6,12 @@ using TMPro;
 public class DebugUpdate : MonoBehaviour
 {
     public TMP_Text text;
-    public ExtPlayer mainPlayer;
-
     private void Update()
     {
         text.text = $"<b>[debug]</b>:\n" +
-            $"HP: {mainPlayer.GetHealth()}\n" +
-            $"Stamina: {mainPlayer.stamina.x}/{mainPlayer.stamina.y}";
+            $"HP: {GlobalReferences.localPlayer.GetHealth().x}/{GlobalReferences.localPlayer.GetHealth().y}\n" +
+            $"Stamina: {GlobalReferences.localPlayer.stamina.x}/{GlobalReferences.localPlayer.stamina.y}\n" +
+            $"Current: {GlobalReferences.localPlayerWeapons.currentWeapon.name}\n" +
+            $"Ammo: {GlobalReferences.localPlayerWeapons.currentWeapon.ammo.x}/{GlobalReferences.localPlayerWeapons.currentWeapon.ammo.y}";
     }
 }

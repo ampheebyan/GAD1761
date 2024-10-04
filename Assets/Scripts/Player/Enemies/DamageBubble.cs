@@ -4,14 +4,8 @@ using UnityEngine;
 
 public class DamageBubble : MonoBehaviour
 {
-    private EnemyAI internals;
-    private void Awake()
-    {
-        if (!transform.parent.TryGetComponent<EnemyAI>(out internals))
-        {
-            throw new System.Exception("No EnemyAI");
-        }
-    }
+    public EnemyAI internals;
+
     private void OnTriggerEnter(Collider other)
     {
         if(other.CompareTag("Player")) internals.damaging = true;

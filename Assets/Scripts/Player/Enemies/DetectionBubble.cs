@@ -4,20 +4,12 @@ using UnityEngine;
 
 public class DetectionBubble : MonoBehaviour
 {
-    private EnemyAI internals;
+    public EnemyAI internals;
 
     public float followTime = 12f;
     private float followTimeInternal = 0f;
 
     private bool inTrigger = false;
-
-    private void Awake()
-    {
-        if(!transform.parent.TryGetComponent<EnemyAI>(out internals))
-        {
-            throw new System.Exception("No EnemyAI");
-        }
-    }
 
     private void Update()
     {

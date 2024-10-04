@@ -12,9 +12,9 @@ public class BasePlayer : MonoBehaviour
     #region Health
 
     // Helper functions to get/set health.
-    public float GetHealth()
+    public Vector2 GetHealth()
     {
-        return health.x;
+        return health;
     }
     public bool SetHealth(float value)
     {

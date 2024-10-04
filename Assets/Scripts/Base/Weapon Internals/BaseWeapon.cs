@@ -6,6 +6,8 @@ using UnityEngine.Events;
 public class BaseWeapon : MonoBehaviour
 {
     [Header("BaseWeapon Properties")]
+    public bool unlocked = false;
+
     public bool automatic = false;
     public float fireRate = 0.05f;
     public float damageOutput = 2f;
@@ -92,6 +94,13 @@ public class BaseWeapon : MonoBehaviour
 
         // Trigger onFinishReload
         onFinishReload.Invoke();
+    }
+    #endregion
+
+    #region
+    public void SetUnlocked(bool value)
+    {
+        unlocked = value;
     }
     #endregion
 }

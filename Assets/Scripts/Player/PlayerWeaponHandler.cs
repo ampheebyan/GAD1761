@@ -49,9 +49,13 @@ public class PlayerWeaponHandler : MonoBehaviour
         currentLock = false;
     }
 
-    public void UpdateCurrentWeapon()
+    public void UpdateCurrentWeapon(int newWeapon)
     {
+        if (newWeapon == currentWeaponNum) return;
+        if (weapons[newWeapon].unlocked == false) return;
+        
         currentWeapon.gameObject.SetActive(false);
+        currentWeaponNum = newWeapon;
         currentWeapon = weapons[currentWeaponNum];
         currentWeapon.gameObject.SetActive(true);
     }
@@ -67,16 +71,12 @@ public class PlayerWeaponHandler : MonoBehaviour
 
         if (Input.GetKeyDown(KeyCode.Alpha1))
         {
-            if (currentWeaponNum == 0) return;
-            currentWeaponNum = 0;
-            UpdateCurrentWeapon();
+            UpdateCurrentWeapon(0);
         }
 
         if (Input.GetKeyDown(KeyCode.Alpha2))
         {
-            if (currentWeaponNum == 1) return;
-            currentWeaponNum = 1;
-            UpdateCurrentWeapon();
+            UpdateCurrentWeapon(1);
         }
 
 

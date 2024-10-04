@@ -38,7 +38,7 @@ public class ExtPlayer : BasePlayer
     public void StaminaHandler() {
         if(movementHandler.isMoving[0] && movementHandler.isMoving[1]) {
             if(staminaDrainTime >= staminaDrainSpeed) {
-                RemoveStamina(0.5f);
+                RemoveStamina((float)System.Math.Round(Random.Range(0.05f, 0.3f), 2));
                 staminaDrainTime = 0f;
             }
 
@@ -48,8 +48,8 @@ public class ExtPlayer : BasePlayer
             staminaResetTime += Time.deltaTime;
         }
 
-        if(staminaResetTime >= staminaResetSpeed) {
-            AddStamina(0.5f);
+        if(staminaResetTime >= staminaResetSpeed && !Input.GetKey(KeyCode.LeftShift)) {
+            AddStamina((float)System.Math.Round(Random.Range(0.05f, 0.25f), 2));
             staminaResetTime = 0f;
         }
     }

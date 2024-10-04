@@ -8,12 +8,15 @@ public class BaseProjectileObject : MonoBehaviour
     public void SetBase(BaseWeapon baseProjectile) {
         weapon = baseProjectile;
     }
+
     public UnityEvent<Collision> onHit;
     public int maxBounces = 2;
+    public float maxAliveTime;
+    
     private int currentBounces = 0;
     private BaseWeapon weapon;
     private float aliveTime;
-    public float maxAliveTime;
+    
     public void Awake() {
         currentBounces = 0;
         aliveTime = 0;

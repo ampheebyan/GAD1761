@@ -5,23 +5,25 @@ using UnityEngine.AI;
 
 public class EnemyAI : MonoBehaviour
 {
+    [Header("EnemyAI Properties")]
     public GameObject target;
-
-    private ExtPlayer player;
-
-    private NavMeshAgent agent;
-
-
     public float closestDistance = 1.1f;
-
     public float damagePerSecond = 5;
-
     public bool damaging = false;
+    public float speed = 5f;
+
     private float damageTimer = 0f;
-    
+    private NavMeshAgent agent;
+    private ExtPlayer player;
     private void Awake()
     {
-        agent = GetComponent<NavMeshAgent>();
+        if(!TryGetComponent<NavMeshAgent>(out agent))
+        {
+            throw new System.Exception("No NavMeshAgent.");
+        } else
+        {
+            agent.speed = speed;
+        }
     }
 
     private void Update()
