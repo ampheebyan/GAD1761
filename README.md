@@ -1,5 +1,5 @@
-# weapons
-This branch will be used for testing weapon changes, or implementing new weapon functionality. It will not be regularly merged into any other branches other than `enemy-testing` (not started) and `main`.
+# enemy-ai
+This branch will primarily reflect `weapons`, and is used for creating enemy AI related stuff.
 
 # GAD176.1 - Game Scripting 2 Project One
 ## What is this?
