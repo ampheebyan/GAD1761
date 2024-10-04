@@ -16,13 +16,16 @@ public class HitscanWeapon : BaseWeapon
         {
             ResetDelay();
             if (ammo.x == 0) return;
+
             ammo.x = Mathf.Clamp(ammo.x - 1, 0, ammo.y);
+
             if (Physics.Raycast(Camera.main.ViewportPointToRay(new Vector3(0.5f,0.5f)), out RaycastHit hit, fireRange))
             {
-                if (hit.collider.gameObject.CompareTag("Player"))
+                if(hit.collider.gameObject.TryGetComponent<BasePlayer>(out BasePlayer player))
                 {
                     HandleDamage(hit.collider);
                 }
+
                 if (debugVisual != null)
                 {
                     GameObject debugVis = Instantiate(debugVisual);
