@@ -55,15 +55,7 @@ public class ExtPlayer : BasePlayer
     }
     #endregion
 
-
-    [Header("Event Triggers")]
-    public UnityEvent onLeftMouseButton;
-    public UnityEvent onRightMouseButton;
-
     public void Update() {
-        if(Input.GetMouseButtonDown(0)) onLeftMouseButton.Invoke();
-        if(Input.GetMouseButtonDown(1)) onRightMouseButton.Invoke();
-
         StaminaHandler();
     }
 }

@@ -10,30 +10,30 @@ public class BaseWeapon : MonoBehaviour
         hitscan
     }
 
+    [Header("BaseWeapon Properties")]
     public weaponType type;
 
+    public bool automatic = false;
     public float fireRate = 0.05f;
     public float damageOutput = 2f;
     public float reloadTime = 1f;
 
     public Transform tip;
 
-    public int maxAmmo = 30;
+    public Vector2Int ammo = new Vector2Int(0,30);
 
     public UnityEvent onStartReload;
     public UnityEvent onFinishReload;
 
     public float delay = 0;
-    [SerializeField]
-    private int currentAmmo = 0;
-
+    public bool reloading = false;
     private void Awake()
     {
-        currentAmmo = maxAmmo;
+        ammo.x = ammo.y;
         delay = fireRate;
     }
 
-    public void HandleDamage(Collider other) {
+    public virtual void HandleDamage(Collider other) {
         if(other.gameObject.CompareTag("Player")) {
             if(other.gameObject.TryGetComponent<ExtPlayer>(out ExtPlayer player)) {
                 player.RemoveHealth(damageOutput);                
@@ -42,40 +42,26 @@ public class BaseWeapon : MonoBehaviour
     }
         
     #region Fire Rate
-    public void Update() {
+    protected void Update() {
         if(delay < fireRate) {
             delay += Time.deltaTime;
         }
     }
-    #endregion
 
-    #region Physical Projectile
-    public GameObject projectile;
-    public float firingForce = 2f;
-    public void ShootProjectile() {
-        if(delay >= fireRate) {
-            delay = 0;
-            if(currentAmmo == 0) return;
-            currentAmmo = Mathf.Clamp(currentAmmo - 1, 0, maxAmmo);
-            GameObject temporaryProjectile = (GameObject) Instantiate(projectile, tip.position, tip.rotation);
-            temporaryProjectile.SetActive(true);
-            if(temporaryProjectile.TryGetComponent<BaseProjectileObject>(out BaseProjectileObject obj))
-                obj.SetBase(this);
-
-            Rigidbody temporaryRigidbody = temporaryProjectile.GetComponent<Rigidbody>();
-            temporaryRigidbody.AddForce(firingForce * tip.transform.forward, ForceMode.Impulse);
-        }
+    public void ResetDelay() {
+        delay = 0f;
     }
-    #endregion
-
-    #region Hitscan
 
     #endregion
+
+    public virtual void Shoot() {
+
+    }
 
     #region Ammo Handling
     public int GetCurrentAmmo()
     {
-        return currentAmmo;
+        return ammo.x;
     }
 
     public void Reload()
@@ -83,16 +69,20 @@ public class BaseWeapon : MonoBehaviour
         StartCoroutine(ReloadCoroutine());
     }
 
-    IEnumerator ReloadCoroutine()
+    protected IEnumerator ReloadCoroutine()
     {
         // Trigger onStartReload
         onStartReload.Invoke();
+
+        reloading = true;
 
         // Wait
         yield return new WaitForSeconds(reloadTime);
 
         // Set ammo correspondingly
-        currentAmmo = maxAmmo;
+        ammo.x = ammo.y;
+
+        reloading = false;
 
         // Trigger onFinishReload
         onFinishReload.Invoke();
