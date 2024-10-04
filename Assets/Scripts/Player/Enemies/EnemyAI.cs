@@ -9,7 +9,8 @@ public class EnemyAI : MonoBehaviour
     [Header("EnemyAI Properties")]
     public GameObject target;
     public float closestDistance = 1.1f;
-    public float damagePerSecond = 5;
+    public Vector2 damage = new Vector2(2, 6);
+    public float damageSpeed = 0.5f;
     public bool damaging = false;
     public float speed = 5f;
 
@@ -27,6 +28,7 @@ public class EnemyAI : MonoBehaviour
         {
             agent.speed = speed;
         }
+        damageTimer = damageSpeed;
     }
     void OnDrawGizmos()
     {
@@ -66,11 +68,11 @@ public class EnemyAI : MonoBehaviour
             }
         }
 
-        if(damaging)
+        if(damaging && target != null)
         {
-            if (damageTimer >= 1)
+            if (damageTimer >= damageSpeed)
             {
-                player.RemoveHealth(damagePerSecond);
+                player.RemoveHealth(Random.Range(damage.x, damage.y));
                 damageTimer = 0f;
             } else
             {

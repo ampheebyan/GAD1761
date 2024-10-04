@@ -48,6 +48,9 @@ public class MovementHandler : MonoBehaviour
 
     private ExtPlayer extendedPlayer;
 
+    private Vector3 startingTransform;
+    private Quaternion startingRotation;
+
     private Vector2 rot;
     private Vector3 playerVelocity;
 
@@ -65,8 +68,15 @@ public class MovementHandler : MonoBehaviour
         }
 
         defaultCamPos = playerCamera.transform.localPosition;
+        startingTransform = transform.position;
+        startingRotation = transform.rotation;
     }
-
+    public void ResetPos()
+    {
+        transform.position = startingTransform;
+        transform.rotation = startingRotation;
+    }
+    
     public void MouseLockHandler() {
         if(cursorLocked) {
             Cursor.lockState = CursorLockMode.Locked;
