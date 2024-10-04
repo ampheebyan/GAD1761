@@ -4,7 +4,6 @@ using UnityEngine;
 using UnityEditor;
 public class EnemyPlayer : BasePlayer
 {
-
     public override void OnDeath()
     {
         base.OnDeath();

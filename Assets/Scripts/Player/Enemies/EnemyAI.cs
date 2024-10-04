@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using UnityEditor;
 using UnityEngine;
 using UnityEngine.AI;
 
@@ -11,6 +12,8 @@ public class EnemyAI : MonoBehaviour
     public float damagePerSecond = 5;
     public bool damaging = false;
     public float speed = 5f;
+
+    public List<Transform> patrolPositions = new List<Transform>();
 
     private float damageTimer = 0f;
     private NavMeshAgent agent;
@@ -25,12 +28,15 @@ public class EnemyAI : MonoBehaviour
             agent.speed = speed;
         }
     }
-
+    void OnDrawGizmos()
+    {
+        if(agent != null)
+            Handles.Label(new Vector3(transform.position.x, transform.position.y + 1, transform.position.z), $"{agent.remainingDistance}");
+    }
     private void Update()
     {
         if(target != null)
         {
-            agent.isStopped = false;
             agent.SetDestination(target.transform.position);
             target.TryGetComponent<ExtPlayer>(out player);
             /*
@@ -54,7 +60,10 @@ public class EnemyAI : MonoBehaviour
         }
         else
         {
-            agent.isStopped = true;
+            if(agent.remainingDistance <= 0 || agent.velocity.magnitude < 0.15f)
+            {
+                agent.SetDestination(patrolPositions[Random.Range(0, patrolPositions.Count)].position);
+            }
         }
 
         if(damaging)
