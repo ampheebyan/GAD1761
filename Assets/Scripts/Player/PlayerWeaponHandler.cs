@@ -49,6 +49,13 @@ public class PlayerWeaponHandler : MonoBehaviour
         currentLock = false;
     }
 
+    public void UpdateCurrentWeapon()
+    {
+        currentWeapon.gameObject.SetActive(false);
+        currentWeapon = weapons[currentWeaponNum];
+        currentWeapon.gameObject.SetActive(true);
+    }
+
     public void Update() 
     {
         if (Input.GetKeyDown(KeyCode.R)) {
@@ -57,6 +64,23 @@ public class PlayerWeaponHandler : MonoBehaviour
 
         if (Input.GetMouseButtonDown(0)) StartShooting();
         if (Input.GetMouseButtonUp(0)) StopShooting();
+
+        if (Input.GetKeyDown(KeyCode.Alpha1))
+        {
+            if (currentWeaponNum == 0) return;
+            currentWeaponNum = 0;
+            UpdateCurrentWeapon();
+        }
+
+        if (Input.GetKeyDown(KeyCode.Alpha2))
+        {
+            if (currentWeaponNum == 1) return;
+            currentWeaponNum = 1;
+            UpdateCurrentWeapon();
+        }
+
+
+
         Handler();
     }
 }

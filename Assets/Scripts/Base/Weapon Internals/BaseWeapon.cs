@@ -5,14 +5,7 @@ using UnityEngine.Events;
 
 public class BaseWeapon : MonoBehaviour
 {
-    public enum weaponType {
-        physical,
-        hitscan
-    }
-
     [Header("BaseWeapon Properties")]
-    public weaponType type;
-
     public bool automatic = false;
     public float fireRate = 0.05f;
     public float damageOutput = 2f;
@@ -23,6 +16,8 @@ public class BaseWeapon : MonoBehaviour
     public UnityEvent onStartReload;
     public UnityEvent onFinishReload;
 
+    public UnityEvent onShoot;
+
     public float delay = 0;
     public bool reloading = false;
     private void Awake()
@@ -31,14 +26,16 @@ public class BaseWeapon : MonoBehaviour
         delay = fireRate;
     }
 
+    #region Damage
     public virtual void HandleDamage(Collider other) {
         if(other.gameObject.CompareTag("Player")) {
-            if(other.gameObject.TryGetComponent<ExtPlayer>(out ExtPlayer player)) {
+            if(other.gameObject.TryGetComponent<BasePlayer>(out BasePlayer player)) {
                 player.RemoveHealth(damageOutput);                
             }
         }
     }
-        
+    #endregion
+
     #region Fire Rate
     protected void Update() {
         if(delay < fireRate) {
@@ -52,8 +49,10 @@ public class BaseWeapon : MonoBehaviour
 
     #endregion
 
+    #region Shooting
     public virtual void Shoot() {
         if (reloading) return;
+        onShoot.Invoke();
     }
 
     public virtual void OnStartShoot()
@@ -63,6 +62,7 @@ public class BaseWeapon : MonoBehaviour
     public virtual void OnStopShoot()
     {
     }
+    #endregion
 
     #region Ammo Handling
     public int GetCurrentAmmo()
