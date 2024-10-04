@@ -32,4 +32,17 @@ public class BasePlayer : MonoBehaviour
         return true;
     }
     #endregion
+
+    public virtual void OnDeath()
+    {
+
+    }
+
+    private void Update()
+    {
+        if(health.x <= 0)
+        {
+            OnDeath();
+        }
+    }
 }

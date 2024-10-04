@@ -16,7 +16,7 @@ public class EnemyAI : MonoBehaviour
 
     public float damagePerSecond = 5;
 
-    private bool damaging = false;
+    public bool damaging = false;
     private float damageTimer = 0f;
     
     private void Awake()
@@ -30,6 +30,7 @@ public class EnemyAI : MonoBehaviour
         {
             agent.isStopped = false;
             agent.SetDestination(target.transform.position);
+            target.TryGetComponent<ExtPlayer>(out player);
             /*
              * It's not pathfinding, per se, but rather just MOVE TOWARDS THE TARGET. NO OTHER OPTION. MOVE TOWARDS THE TARGET kind of AI. I don't like this.
              * I also don't like writing pathfinding, so I'm going to use Unity's navmesh system in future. This can stay as a historical "I did kinda try you know" thing.
@@ -48,7 +49,8 @@ public class EnemyAI : MonoBehaviour
             }
             transform.rotation = Quaternion.LookRotation(target.transform.position - transform.position);
             */
-        } else
+        }
+        else
         {
             agent.isStopped = true;
         }

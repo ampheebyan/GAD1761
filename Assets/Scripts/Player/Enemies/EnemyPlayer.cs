@@ -2,17 +2,15 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class EnemyPlayer : MonoBehaviour
+public class EnemyPlayer : BasePlayer
 {
-    // Start is called before the first frame update
-    void Start()
+
+    public override void OnDeath()
     {
-        
+        base.OnDeath();
+
+        print("Enemy died!");
+        Destroy(transform.parent.gameObject);
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
 }
