@@ -334,14 +334,14 @@ MonoBehaviour:
   m_GameObject: {fileID: 460207825}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c188a8185b8a12b469e6b3a5aeb4921b, type: 3}
+  m_Script: {fileID: 11500000, guid: 89d824d6980f5a942b0e44c393941884, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   automatic: 1
-  fireRate: 0.1
+  fireRate: 0.05
   damageOutput: 2
   reloadTime: 1
-  ammo: {x: 0, y: 120}
+  ammo: {x: 0, y: 80}
   onStartReload:
     m_PersistentCalls:
       m_Calls:
