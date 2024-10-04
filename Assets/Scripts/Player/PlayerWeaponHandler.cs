@@ -7,17 +7,19 @@ public class PlayerWeaponHandler : MonoBehaviour
     public BaseWeapon[] weapons;
     public int currentWeapon = 0;
 
+    public bool currentLock = false;
     public void ShootCurrentWeapon() {
         BaseWeapon current = weapons[currentWeapon];
 
-        switch(current.type) {
-            case BaseWeapon.weaponType.physical:
-                current.ShootProjectile();
-            break;
-            case BaseWeapon.weaponType.hitscan:
-            // Unimplemented.
-            break;
+        if(current.automatic) {
+            current.Shoot();
+        } else {
+            if(currentLock == false) {
+                currentLock = true;
+                current.Shoot();
+            }
         }
+
     }
 
     public void Update() {
@@ -25,5 +27,8 @@ public class PlayerWeaponHandler : MonoBehaviour
             BaseWeapon current = weapons[currentWeapon];
             current.Reload();
         }
+        if(Input.GetMouseButtonUp(0)) currentLock = false;
+
+        if(Input.GetMouseButton(0)) ShootCurrentWeapon();
     }
 }

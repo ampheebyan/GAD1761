@@ -361,25 +361,50 @@ MonoBehaviour:
   m_GameObject: {fileID: 510885227}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 65250155cf51b4f4aa24b414fafa6ef0, type: 3}
+  m_Script: {fileID: 11500000, guid: f4890879ad1e4426981897a9c52510a6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   type: 0
-  fireRate: 0.05
+  automatic: 1
+  fireRate: 0.15
   damageOutput: 2
-  reloadTime: 1
+  reloadTime: 0.5
   tip: {fileID: 709483077}
-  maxAmmo: 30
+  ammo: {x: 0, y: 30}
   onStartReload:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 510885229}
+        m_TargetAssemblyTypeName: UnityEngine.Renderer, UnityEngine
+        m_MethodName: set_enabled
+        m_Mode: 6
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
   onFinishReload:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 510885229}
+        m_TargetAssemblyTypeName: UnityEngine.Renderer, UnityEngine
+        m_MethodName: set_enabled
+        m_Mode: 6
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 1
+        m_CallState: 2
   delay: 0
-  currentAmmo: 0
+  reloading: 0
   projectile: {fileID: 544048478}
-  firingForce: 25
+  firingForce: 15
 --- !u!1 &544048478
 GameObject:
   m_ObjectHideFlags: 0
@@ -703,6 +728,7 @@ MonoBehaviour:
   weapons:
   - {fileID: 510885232}
   currentWeapon: 0
+  currentLock: 0
 --- !u!1 &853466236
 GameObject:
   m_ObjectHideFlags: 0
@@ -1263,6 +1289,7 @@ MonoBehaviour:
   playerJump: 1
   crouchHeight: 1
   sensitivity: {x: 2, y: 2}
+  currentMovementZone: {fileID: 0}
 --- !u!114 &1906805525
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1279,24 +1306,6 @@ MonoBehaviour:
   stamina: {x: 20, y: 20}
   staminaResetSpeed: 0.75
   staminaDrainSpeed: 0.25
-  onLeftMouseButton:
-    m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 840291765}
-        m_TargetAssemblyTypeName: PlayerWeaponHandler, Assembly-CSharp
-        m_MethodName: ShootCurrentWeapon
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-  onRightMouseButton:
-    m_PersistentCalls:
-      m_Calls: []
 --- !u!143 &1906805526
 CharacterController:
   m_ObjectHideFlags: 0
