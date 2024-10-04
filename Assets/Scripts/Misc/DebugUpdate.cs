@@ -11,6 +11,7 @@ public class DebugUpdate : MonoBehaviour
     private void Update()
     {
         text.text = $"<b>[debug]</b>:\n" +
-            $"HP: {mainPlayer.GetHealth()}";
+            $"HP: {mainPlayer.GetHealth()}\n" +
+            $"Stamina: {mainPlayer.stamina.x}/{mainPlayer.stamina.y}";
     }
 }

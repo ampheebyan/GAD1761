@@ -1,13 +1,16 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.AI;
 
 public class EnemyAI : MonoBehaviour
 {
     public GameObject target;
 
     private ExtPlayer player;
-    private Rigidbody rb;
+
+    private NavMeshAgent agent;
+
 
     public float closestDistance = 1.1f;
 
@@ -18,13 +21,19 @@ public class EnemyAI : MonoBehaviour
     
     private void Awake()
     {
-        rb = GetComponent<Rigidbody>();
+        agent = GetComponent<NavMeshAgent>();
     }
 
     private void Update()
     {
         if(target != null)
         {
+            agent.isStopped = false;
+            agent.SetDestination(target.transform.position);
+            /*
+             * It's not pathfinding, per se, but rather just MOVE TOWARDS THE TARGET. NO OTHER OPTION. MOVE TOWARDS THE TARGET kind of AI. I don't like this.
+             * I also don't like writing pathfinding, so I'm going to use Unity's navmesh system in future. This can stay as a historical "I did kinda try you know" thing.
+             * 
             print(Vector3.Distance(transform.position, target.transform.position));
             print(target.name);
             if (Vector3.Distance(transform.position, target.transform.position) > closestDistance)
@@ -38,6 +47,10 @@ public class EnemyAI : MonoBehaviour
                 damaging = true;
             }
             transform.rotation = Quaternion.LookRotation(target.transform.position - transform.position);
+            */
+        } else
+        {
+            agent.isStopped = true;
         }
 
         if(damaging)
