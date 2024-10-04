@@ -7,11 +7,10 @@ public class ProjectileWeapon : BaseWeapon
     [Header("ProjectileWeapon Properties")]
 
     public GameObject projectile;
+    public Transform tip;
     public float firingForce = 2f;
     public override void Shoot()
     {
-        if(reloading) return;
-        
         base.Shoot();
         if(delay >= fireRate) {
             ResetDelay();

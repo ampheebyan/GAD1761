@@ -52,7 +52,6 @@ public class MovementHandler : MonoBehaviour
     private Vector3 playerVelocity;
 
     private bool cursorLocked = false;
-
     public void Awake() 
     {
         if(!TryGetComponent<CharacterController>(out characterController)) {
@@ -138,7 +137,8 @@ public class MovementHandler : MonoBehaviour
             characterController.Move(motion);
     }
 
-    public void MovementZoneHandler() {
+    public void MovementZoneHandler() 
+    {
         if(Physics.Raycast(transform.position, new Vector3(0,-1,0), out RaycastHit hit,2f)) {
             if(hit.collider.gameObject.TryGetComponent<MovementZoneInfo>(out MovementZoneInfo movementZoneInfo)) {
                 currentMovementZone = movementZoneInfo;

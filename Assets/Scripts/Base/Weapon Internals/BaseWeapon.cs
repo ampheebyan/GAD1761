@@ -18,8 +18,6 @@ public class BaseWeapon : MonoBehaviour
     public float damageOutput = 2f;
     public float reloadTime = 1f;
 
-    public Transform tip;
-
     public Vector2Int ammo = new Vector2Int(0,30);
 
     public UnityEvent onStartReload;
@@ -55,7 +53,15 @@ public class BaseWeapon : MonoBehaviour
     #endregion
 
     public virtual void Shoot() {
+        if (reloading) return;
+    }
 
+    public virtual void OnStartShoot()
+    {
+    }
+
+    public virtual void OnStopShoot()
+    {
     }
 
     #region Ammo Handling
