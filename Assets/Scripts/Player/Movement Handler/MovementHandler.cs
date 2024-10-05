@@ -18,6 +18,7 @@ public class MovementHandler : MonoBehaviour
     [SerializeField]
     private Camera playerCamera;
 
+    [Header("Movement Properties")]
     [SerializeField]
     private float walkingSpeed = 5f;
 
@@ -30,7 +31,17 @@ public class MovementHandler : MonoBehaviour
     [SerializeField]
     private float playerJump = 1f;
 
-    public float crouchHeight = 1f;
+    [SerializeField]
+    private float crouchHeight = 1f;
+
+    [SerializeField]
+    private float dashForce = 12f;
+
+    [SerializeField]
+    private float dashDelay = 0.25f;
+
+    [SerializeField]
+    private int maxDashes = 2;
 
     [SerializeField]
     private Vector2 sensitivity = new Vector2 {
@@ -41,6 +52,8 @@ public class MovementHandler : MonoBehaviour
     [Header("Input")]
     public KeyCode crouchKey = KeyCode.C;
     public KeyCode jumpKey = KeyCode.Space;
+    public KeyCode sprintKey = KeyCode.LeftShift;
+    public KeyCode dashKey = KeyCode.LeftShift;
 
     // Completely non-public variables.
     private CharacterController characterController;
@@ -58,6 +71,7 @@ public class MovementHandler : MonoBehaviour
     private Vector2 rot;
     private Vector3 playerVelocity;
 
+    private int dashCount = 0;
     private bool cursorLocked = false;
     public void Awake() 
     {
@@ -108,13 +122,22 @@ public class MovementHandler : MonoBehaviour
         playerCamera.transform.localEulerAngles = new Vector3(rot.x, 0, 0);
     }
 
+    IEnumerator DashCoroutine(Vector3 movement)
+    {
+        float internalDashStartTime = Time.time;
+
+        while(Time.time < internalDashStartTime + dashDelay)
+        {
+            characterController.Move(movement * dashForce * Time.deltaTime);
+            yield return null;
+        }
+    }
+
     public void CharacterMove(Vector2 movement) 
     {
         if(Input.GetKey(crouchKey)) {
             isCrouching = true;
-                
             playerCamera.transform.localPosition = defaultCamPos - new Vector3(0, (defaultHeight - crouchHeight) / 2, 0);
-
             characterController.height = crouchHeight;
         } else {
             isCrouching = false;
@@ -124,19 +147,31 @@ public class MovementHandler : MonoBehaviour
 
         if (Input.GetKey(jumpKey))
         {
-            if(isGrounded) playerVelocity.y = Mathf.Sqrt(playerJump * -2 * -playerGravity);
+            if(isGrounded)
+                playerVelocity.y = Mathf.Sqrt(playerJump * -2 * -playerGravity);
         }
+
+        Vector3 movementVector = transform.right * movement.x + transform.forward * movement.y;
 
         if (isGrounded)
         {
             if(playerVelocity.y < 0) playerVelocity.y = -2;
+            dashCount = 0;
+        } else
+        {
+            if(Input.GetKeyDown(dashKey))
+            {
+                if(dashCount != maxDashes)
+                {
+                    dashCount++;
+                    StartCoroutine(DashCoroutine(movementVector));
+                }
+            }
         }
 
         playerVelocity.y += -playerGravity * Time.deltaTime;
 
-        Vector3 movementVector = transform.right * movement.x + transform.forward * movement.y;
-
-        isMoving[1] = extendedPlayer.stamina.x <= 0 ? false : Input.GetKey(KeyCode.LeftShift);
+        isMoving[1] = extendedPlayer.stamina.x <= 0 ? false : Input.GetKey(sprintKey);
         float movementSpeed = isMoving[1] ? runSpeed : walkingSpeed;
 
         if(currentMovementZone != null) {

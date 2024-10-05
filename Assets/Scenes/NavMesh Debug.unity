@@ -2661,7 +2661,13 @@ MonoBehaviour:
   playerGravity: 20
   playerJump: 1
   crouchHeight: 1
+  dashForce: 6
+  dashDelay: 0.1
+  maxDashes: 2
   sensitivity: {x: 2, y: 2}
+  crouchKey: 99
+  jumpKey: 32
+  sprintDashKey: 304
   currentMovementZone: {fileID: 0}
 --- !u!114 &1906805525
 MonoBehaviour:
