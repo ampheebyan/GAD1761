@@ -77,7 +77,7 @@ public class EnemyAI : MonoBehaviour
         }
         else
         {
-            if(agent.remainingDistance <= 0 || agent.velocity.magnitude < 0.15f)
+            if((agent.remainingDistance <= 0 || agent.velocity.magnitude < 0.15f) && patrolList.Count > 0)
             {
                 agent.SetDestination(patrolList[Random.Range(0, patrolList.Count)].position);
             }
