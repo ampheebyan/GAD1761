@@ -22,6 +22,7 @@ public class BaseWeapon : MonoBehaviour
 
     public float delay = 0;
     public bool reloading = false;
+    private Coroutine currentReload;
     private void Awake()
     {
         ammo.x = ammo.y;
@@ -74,7 +75,7 @@ public class BaseWeapon : MonoBehaviour
 
     public void Reload()
     {
-        StartCoroutine(ReloadCoroutine());
+        currentReload = StartCoroutine(ReloadCoroutine());
     }
 
     protected IEnumerator ReloadCoroutine()
@@ -92,8 +93,21 @@ public class BaseWeapon : MonoBehaviour
 
         reloading = false;
 
+        currentReload = null;
         // Trigger onFinishReload
         onFinishReload.Invoke();
+    }
+    #endregion
+
+    #region Disable/Enable Handling
+    private void OnDisable()
+    {
+        if (reloading == true)
+        {
+            StopCoroutine(currentReload);
+            reloading = false;
+            onFinishReload.Invoke();
+        }
     }
     #endregion
 
