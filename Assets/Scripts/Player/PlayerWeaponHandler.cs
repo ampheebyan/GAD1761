@@ -79,7 +79,10 @@ public class PlayerWeaponHandler : MonoBehaviour
             UpdateCurrentWeapon(1);
         }
 
-
+        if (Input.GetKeyDown(KeyCode.Alpha3))
+        {
+            UpdateCurrentWeapon(2);
+        }
 
         Handler();
     }
