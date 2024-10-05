@@ -921,7 +921,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 518575850}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: bb55e44411b0b1248a992771aa0e33ae, type: 3}
   m_Name: 
@@ -1469,6 +1469,7 @@ MonoBehaviour:
   weapons:
   - {fileID: 460207827}
   - {fileID: 510885232}
+  - {fileID: 204810275}
   currentWeapon: {fileID: 0}
   currentWeaponNum: 0
   currentLock: 0
@@ -2356,6 +2357,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 460207826}
+  - {fileID: 204810271}
   - {fileID: 510885231}
   m_Father: {fileID: 1331553561}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -2667,7 +2669,10 @@ MonoBehaviour:
   sensitivity: {x: 2, y: 2}
   crouchKey: 99
   jumpKey: 32
+<<<<<<< HEAD
   sprintDashKey: 304
+=======
+>>>>>>> weapons
   currentMovementZone: {fileID: 0}
 --- !u!114 &1906805525
 MonoBehaviour:
