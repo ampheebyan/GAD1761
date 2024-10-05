@@ -55,6 +55,11 @@ public class ExtPlayer : BasePlayer
     }
     #endregion
 
+    public override void OnDeath()
+    {
+        GlobalReferences.movementHandler.enabled = false;
+        GlobalReferences.localPlayerWeapons.enabled = false;
+    }
     public void Update() {
         StaminaHandler();
     }
