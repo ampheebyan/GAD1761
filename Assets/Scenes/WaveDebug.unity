@@ -545,7 +545,7 @@ MonoBehaviour:
   fireRange: 12
   shotCount: 3
   spread: 0.1
-  debugVisual: {fileID: 1159839815}
+  debugVisual: {fileID: 0}
 --- !u!1 &375871669
 GameObject:
   m_ObjectHideFlags: 0
@@ -784,7 +784,7 @@ MonoBehaviour:
   delay: 0
   reloading: 0
   fireRange: 8
-  debugVisual: {fileID: 1159839815}
+  debugVisual: {fileID: 0}
 --- !u!23 &460207829
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -3245,7 +3245,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bb55e44411b0b1248a992771aa0e33ae, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  enemyObject: {fileID: 8111740797774293573, guid: 3fe90148c0715dc40b1d69d46fe97beb, type: 3}
+  enemyObject: {fileID: 8111740797774293573, guid: 4d7f3466b9f5524419f761dfdbb6241e, type: 3}
   spawnFrequency: 4
   maxSpawnCount: 12
   patrolPositions: {fileID: 1601385767}
