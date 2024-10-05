@@ -37,7 +37,11 @@ public class MovementHandler : MonoBehaviour
         x = 2f,
         y = 2f
     };
-    
+
+    [Header("Input")]
+    public KeyCode crouchKey = KeyCode.C;
+    public KeyCode jumpKey = KeyCode.Space;
+
     // Completely non-public variables.
     private CharacterController characterController;
     [SerializeField]
@@ -106,7 +110,7 @@ public class MovementHandler : MonoBehaviour
 
     public void CharacterMove(Vector2 movement) 
     {
-            if(Input.GetKey(KeyCode.C)) {
+            if(Input.GetKey(crouchKey)) {
                 isCrouching = true;
                 
                 playerCamera.transform.localPosition = defaultCamPos - new Vector3(0, (defaultHeight - crouchHeight) / 2, 0);
@@ -118,7 +122,7 @@ public class MovementHandler : MonoBehaviour
                 playerCamera.transform.localPosition = defaultCamPos;
             }
 
-            if (Input.GetKey(KeyCode.Space))
+            if (Input.GetKey(jumpKey))
             {
                 if(isGrounded) playerVelocity.y = Mathf.Sqrt(playerJump * -2 * -playerGravity);
             }
