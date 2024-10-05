@@ -110,45 +110,45 @@ public class MovementHandler : MonoBehaviour
 
     public void CharacterMove(Vector2 movement) 
     {
-            if(Input.GetKey(crouchKey)) {
-                isCrouching = true;
+        if(Input.GetKey(crouchKey)) {
+            isCrouching = true;
                 
-                playerCamera.transform.localPosition = defaultCamPos - new Vector3(0, (defaultHeight - crouchHeight) / 2, 0);
+            playerCamera.transform.localPosition = defaultCamPos - new Vector3(0, (defaultHeight - crouchHeight) / 2, 0);
 
-                characterController.height = crouchHeight;
-            } else {
-                isCrouching = false;
-                characterController.height = defaultHeight;
-                playerCamera.transform.localPosition = defaultCamPos;
-            }
+            characterController.height = crouchHeight;
+        } else {
+            isCrouching = false;
+            characterController.height = defaultHeight;
+            playerCamera.transform.localPosition = defaultCamPos;
+        }
 
-            if (Input.GetKey(jumpKey))
-            {
-                if(isGrounded) playerVelocity.y = Mathf.Sqrt(playerJump * -2 * -playerGravity);
-            }
+        if (Input.GetKey(jumpKey))
+        {
+            if(isGrounded) playerVelocity.y = Mathf.Sqrt(playerJump * -2 * -playerGravity);
+        }
 
-            if (isGrounded)
-            {
-               if(playerVelocity.y < 0) playerVelocity.y = -2;
-            }
+        if (isGrounded)
+        {
+            if(playerVelocity.y < 0) playerVelocity.y = -2;
+        }
 
-            playerVelocity.y += -playerGravity * Time.deltaTime;
+        playerVelocity.y += -playerGravity * Time.deltaTime;
 
-            Vector3 movementVector = transform.right * movement.x + transform.forward * movement.y;
+        Vector3 movementVector = transform.right * movement.x + transform.forward * movement.y;
 
-            isMoving[1] = extendedPlayer.stamina.x <= 0 ? false : Input.GetKey(KeyCode.LeftShift);
-            float movementSpeed = isMoving[1] ? runSpeed : walkingSpeed;
+        isMoving[1] = extendedPlayer.stamina.x <= 0 ? false : Input.GetKey(KeyCode.LeftShift);
+        float movementSpeed = isMoving[1] ? runSpeed : walkingSpeed;
 
-            if(currentMovementZone != null) {
-                movementSpeed += currentMovementZone.speedModifier;
-            }
+        if(currentMovementZone != null) {
+            movementSpeed += currentMovementZone.speedModifier;
+        }
 
-            Vector3 motion = movementVector * movementSpeed * Time.deltaTime + playerVelocity * Time.deltaTime;
+        Vector3 motion = movementVector * movementSpeed * Time.deltaTime + playerVelocity * Time.deltaTime;
 
-            isMoving[0] = motion.x != 0 ||motion.z != 0;
+        isMoving[0] = motion.x != 0 ||motion.z != 0;
 
-            Physics.SyncTransforms();
-            characterController.Move(motion);
+        Physics.SyncTransforms();
+        characterController.Move(motion);
     }
 
     public void MovementZoneHandler() 
