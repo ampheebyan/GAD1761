@@ -4,7 +4,17 @@ using UnityEngine;
 
 public class OTEnInteract : BaseInteraction
 {
-    public void OnTriggerEnter(Collider other) {
-        onTrigger.Invoke();
+    public bool onlyPlayer = false;
+    public void OnTriggerEnter(Collider other)
+    {
+        if (onlyPlayer)
+        {
+            if (other.gameObject.CompareTag("Player"))
+                onTrigger.Invoke();
+        }
+        else
+        {
+            onTrigger.Invoke();
+        }
     }
 }

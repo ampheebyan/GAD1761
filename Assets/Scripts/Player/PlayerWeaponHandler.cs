@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 public class PlayerWeaponHandler : MonoBehaviour
@@ -51,6 +52,7 @@ public class PlayerWeaponHandler : MonoBehaviour
 
     public void UpdateCurrentWeapon(int newWeapon)
     {
+        if (newWeapon > weapons.Length) return;
         if (newWeapon == currentWeaponNum) return;
         if (weapons[newWeapon].unlocked == false) return;
         
@@ -59,7 +61,6 @@ public class PlayerWeaponHandler : MonoBehaviour
         currentWeapon = weapons[currentWeaponNum];
         currentWeapon.gameObject.SetActive(true);
     }
-
     public void Update() 
     {
         if (Input.GetKeyDown(KeyCode.R)) {
@@ -72,16 +73,21 @@ public class PlayerWeaponHandler : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.Alpha1))
         {
             UpdateCurrentWeapon(0);
-        }
-
-        if (Input.GetKeyDown(KeyCode.Alpha2))
+        } else if (Input.GetKeyDown(KeyCode.Alpha2))
         {
             UpdateCurrentWeapon(1);
-        }
-
-        if (Input.GetKeyDown(KeyCode.Alpha3))
+        } else if (Input.GetKeyDown(KeyCode.Alpha3))
         {
             UpdateCurrentWeapon(2);
+        } else if (Input.GetKeyDown(KeyCode.Alpha4))
+        {
+            UpdateCurrentWeapon(3);
+        } else if (Input.GetKeyDown(KeyCode.Alpha5))
+        {
+            UpdateCurrentWeapon(4);
+        } else if (Input.GetKeyDown(KeyCode.Alpha6))
+        {
+            UpdateCurrentWeapon(5);
         }
 
         Handler();
