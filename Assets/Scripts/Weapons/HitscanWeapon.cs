@@ -7,7 +7,28 @@ public class HitscanWeapon : BaseWeapon
 {
     [Header("HitscanWeapon Properties")]
     public float fireRange = 5f;
+    public GameObject hitPoint;
     public GameObject debugVisual;
+
+    public virtual void HitPoint(RaycastHit hit)
+    {
+        if (hitPoint != null)
+        {
+            GameObject newHitPoint = Instantiate(hitPoint, hit.point, Quaternion.identity);
+            newHitPoint.transform.SetParent(hit.transform);
+            newHitPoint.SetActive(true);
+        }
+    }
+    public virtual void DebugHitPoint(RaycastHit hit)
+    {
+        if (debugVisual != null)
+        {
+            GameObject debugVis = Instantiate(debugVisual);
+            debugVis.SetActive(true);
+            debugVis.transform.position = hit.point;
+            debugVis.GetComponent<MeshRenderer>().material.color = Random.ColorHSV();
+        }
+    }
 
     public override void Shoot()
     {
@@ -26,13 +47,9 @@ public class HitscanWeapon : BaseWeapon
                     HandleDamage(hit.collider);
                 }
 
-                if (debugVisual != null)
-                {
-                    GameObject debugVis = Instantiate(debugVisual);
-                    debugVis.SetActive(true);
-                    debugVis.transform.position = hit.point;
-                    debugVis.GetComponent<MeshRenderer>().material.color = Random.ColorHSV();
-                }
+                HitPoint(hit);
+
+                DebugHitPoint(hit);
             }
         }
 
