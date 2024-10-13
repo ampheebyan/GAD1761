@@ -161,9 +161,10 @@ public class MovementHandler : MonoBehaviour
         {
             if(Input.GetKeyDown(dashKey))
             {
-                if(dashCount != maxDashes)
+                if(dashCount != maxDashes && extendedPlayer.stamina.x >= 5)
                 {
                     dashCount++;
+                    extendedPlayer.RemoveStamina(5);
                     StartCoroutine(DashCoroutine(movementVector));
                 }
             }
