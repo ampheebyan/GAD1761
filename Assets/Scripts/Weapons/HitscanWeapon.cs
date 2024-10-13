@@ -9,6 +9,8 @@ public class HitscanWeapon : BaseWeapon
     public float fireRange = 5f;
     public GameObject hitPoint;
     public GameObject debugVisual;
+
+    // Hitpoint handlers
     public virtual void HitPoint(RaycastHit hit)
     {
         if (hitPoint != null)
@@ -32,25 +34,5 @@ public class HitscanWeapon : BaseWeapon
     public override void Shoot()
     {
         base.Shoot();
-        if (delay >= fireRate)
-        {
-            ResetDelay();
-            if (ammo.x == 0) return;
-
-            ammo.x = Mathf.Clamp(ammo.x - 1, 0, ammo.y);
-
-            if (Physics.Raycast(Camera.main.ViewportPointToRay(new Vector3(0.5f,0.5f)), out RaycastHit hit, fireRange))
-            {
-                if(hit.collider.gameObject.TryGetComponent<BasePlayer>(out BasePlayer player))
-                {
-                    HandleDamage(hit.collider);
-                }
-
-                HitPoint(hit);
-
-                DebugHitPoint(hit);
-            }
-        }
-
     }
 }

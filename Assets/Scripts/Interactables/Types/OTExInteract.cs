@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class OTExInteract : BaseInteraction
 {
+    // Simple interactable object that fires UnityEvent if trigger exited.
     public bool onlyPlayer = false;
     public void OnTriggerExit (Collider other)
     {

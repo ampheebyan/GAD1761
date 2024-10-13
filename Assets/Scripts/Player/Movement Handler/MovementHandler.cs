@@ -102,17 +102,20 @@ public class MovementHandler : MonoBehaviour
     }
     public void ResetPos()
     {
+        // Reset to initial position
         transform.position = startingTransform;
         transform.rotation = startingRotation;
     }
     
     public void MouseLockHandler() {
+        // If cursorLocked, set it to locked, else don't lock it!
         if(cursorLocked) {
             Cursor.lockState = CursorLockMode.Locked;
         } else {
             Cursor.lockState = CursorLockMode.None;
         }
 
+        // Handle state of cursorLocked
         if(Input.GetMouseButtonDown(0) && cursorLocked == false) {
             cursorLocked = true;
         }
@@ -124,6 +127,7 @@ public class MovementHandler : MonoBehaviour
 
     public void MouseLook(Vector2 mouse) 
     {
+        // Camera movement
         rot.x -= mouse.y * sensitivity.y;
         rot.y -= mouse.x * sensitivity.x;
 
@@ -135,6 +139,7 @@ public class MovementHandler : MonoBehaviour
 
     IEnumerator DashCoroutine(Vector3 movement)
     {
+        // Dash movement handler
         float internalDashStartTime = Time.time;
 
         while(Time.time < internalDashStartTime + dashDelay)
@@ -146,11 +151,14 @@ public class MovementHandler : MonoBehaviour
 
     public void CharacterMove(Vector2 movement) 
     {
+        // Big function full of character movement things.
         if(Input.GetKey(crouchKey)) {
+            // Crouching
             isCrouching = true;
             playerCamera.transform.localPosition = defaultCamPos - new Vector3(0, (defaultHeight - crouchHeight) / 2, 0);
             characterController.height = crouchHeight;
         } else {
+            // Default height
             isCrouching = false;
             characterController.height = defaultHeight;
             playerCamera.transform.localPosition = defaultCamPos;
@@ -158,12 +166,14 @@ public class MovementHandler : MonoBehaviour
 
         if (Input.GetKey(jumpKey))
         {
+            // Start jump.
             if(isGrounded)
                 playerVelocity.y = Mathf.Sqrt(playerJump * -2 * -playerGravity);
         }
 
         Vector3 movementVector = transform.right * movement.x + transform.forward * movement.y;
 
+        // Dash/grounded handling
         if (isGrounded)
         {
             if(playerVelocity.y < 0) playerVelocity.y = -2;
@@ -181,8 +191,10 @@ public class MovementHandler : MonoBehaviour
             }
         }
 
+        // Gravity.
         playerVelocity.y += -playerGravity * Time.deltaTime;
 
+        // Set if sprinting public variable.
         isMoving[1] = extendedPlayer.stamina.x <= 0 ? false : Input.GetKey(sprintKey);
         float movementSpeed = isMoving[1] ? runSpeed : walkingSpeed;
 
@@ -192,14 +204,18 @@ public class MovementHandler : MonoBehaviour
 
         Vector3 motion = movementVector * movementSpeed * Time.deltaTime + playerVelocity * Time.deltaTime;
 
+        // Set ifMoving
         isMoving[0] = motion.x != 0 ||motion.z != 0;
 
+        // SyncTransforms so physics affects me
         Physics.SyncTransforms();
+        // Move!
         characterController.Move(motion);
     }
 
     public void MovementZoneHandler() 
     {
+        // For finding movement zones.
         if(Physics.Raycast(transform.position, new Vector3(0,-1,0), out RaycastHit hit,2f)) {
             if(hit.collider.gameObject.TryGetComponent<MovementZoneInfo>(out MovementZoneInfo movementZoneInfo)) {
                 currentMovementZone = movementZoneInfo;
@@ -211,6 +227,8 @@ public class MovementHandler : MonoBehaviour
 
     public void Update()
     {
+        // Simple vectors to house movement data
+        
         Vector2 mouse = new Vector2
         {
             x = Input.GetAxis("Mouse X"),
@@ -224,6 +242,7 @@ public class MovementHandler : MonoBehaviour
 
         isGrounded = characterController.isGrounded;
 
+        // Call our helpers
         if (Input.GetKeyDown(interactKey)) interactionHandler.Raycast();
 
         MouseLockHandler();

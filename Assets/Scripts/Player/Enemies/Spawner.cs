@@ -29,6 +29,7 @@ public class Spawner : MonoBehaviour
     }
     public void Update()
     {
+        // Every single time the timer hits the frequency set, spawn a new player, give them our current patrolList and tell them to get started.
         if(internalTimer >= spawnFrequency)
         {
             if(spawnCount != maxSpawnCount)

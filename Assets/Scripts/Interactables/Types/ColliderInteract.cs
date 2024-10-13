@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class ColliderInteract : BaseInteraction
 {
+    // Simple interactable object that fires UnityEvent if collider hit.
     public bool onlyPlayer = false;
     public void OnCollisionEnter (Collision other)
     {

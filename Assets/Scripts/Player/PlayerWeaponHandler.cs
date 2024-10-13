@@ -5,6 +5,7 @@ using UnityEngine;
 
 public class PlayerWeaponHandler : MonoBehaviour
 {
+    [Header("PlayerWeaponHandler Properties")]
     public BaseWeapon[] weapons;
     public BaseWeapon currentWeapon;
     public int currentWeaponNum = 0;
@@ -14,23 +15,29 @@ public class PlayerWeaponHandler : MonoBehaviour
 
     private void Awake()
     {
+        // Set currentWeapon to whatever the default is.
         currentWeapon = weapons[currentWeaponNum];
     }
 
     public void Handler()
     {
+        // If shooting is triggered
         if(shootingTrigger == true)
         {
+            // Stop if ammo.x (current) is 0
             if (currentWeapon.ammo.x == 0) return;
 
             if (currentWeapon.automatic)
             {
+                // If automatic, just keep shooting
                 currentWeapon.Shoot();
             }
             else
             {
+                // If not automatic, check if lock is false
                 if (currentLock == false)
                 {
+                    // If it is, set it to true and trigger shoot.
                     currentLock = true;
                     currentWeapon.Shoot();
                 }
@@ -38,12 +45,14 @@ public class PlayerWeaponHandler : MonoBehaviour
         }
     }
     public void StartShooting() {
+        // Start shooting.
         currentWeapon.OnStartShoot();
         shootingTrigger = true;
     }
 
     public void StopShooting()
     {
+        // Stop shooting and reset lock
         currentWeapon.OnStopShoot();
         shootingTrigger = false;
         currentLock = false;
@@ -51,15 +60,21 @@ public class PlayerWeaponHandler : MonoBehaviour
 
     public void UpdateCurrentWeapon(int newWeapon)
     {
+        // If weapon is above weapons.Length stop
         if (newWeapon > weapons.Length) return;
+        // If weapon is the same stop
         if (newWeapon == currentWeaponNum) return;
+        // If weapon not unlocked stop
         if (weapons[newWeapon].unlocked == false) return;
         
+        // Set current to be hidden
         currentWeapon.gameObject.SetActive(false);
 
+        // Change associated variables
         currentWeaponNum = newWeapon;
         currentWeapon = weapons[currentWeaponNum];
         
+        // Show current
         currentWeapon.gameObject.SetActive(true);
     }
 
@@ -116,13 +131,16 @@ public class PlayerWeaponHandler : MonoBehaviour
 
     public void Update() 
     {
+        // Reload if R is pressed
         if (Input.GetKeyDown(KeyCode.R)) {
             currentWeapon.Reload();
         }
 
+        // Handle start and stop
         if (Input.GetMouseButtonDown(0)) StartShooting();
         if (Input.GetMouseButtonUp(0)) StopShooting();
 
+        // Helper functions
         WeaponChangeHandler();
         Handler();
     }

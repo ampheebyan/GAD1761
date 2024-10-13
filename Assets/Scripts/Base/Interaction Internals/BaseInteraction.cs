@@ -5,6 +5,5 @@ using UnityEngine.Events;
 
 public class BaseInteraction : MonoBehaviour
 {
-public UnityEvent onTrigger;
-
+    public UnityEvent onTrigger;
 }

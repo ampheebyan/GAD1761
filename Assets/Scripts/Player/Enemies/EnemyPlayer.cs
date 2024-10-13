@@ -4,6 +4,7 @@ using UnityEngine;
 using UnityEditor;
 public class EnemyPlayer : BasePlayer
 {
+    // Simple enemy class, exist to have a reference to enemy specific classes, and enemy specific death logic.
     public override void OnDeath()
     {
         base.OnDeath();

@@ -9,19 +9,25 @@ public class DamageVolume : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
+        // If find baseCharacter
         if(other.TryGetComponent<BaseCharacter>(out BaseCharacter baseCharacter))
         {
+            // Ensure not null
             if (baseCharacter != null)
             {
+                // If should only damage player
                 if(shouldOnlyDamagePlayer) 
                 { 
+                    // Check if player
                     if(other.CompareTag("Player"))
                     {
+                        // Yes!
                         internals.damaging = true;
                         internals.currentlyDamaging = baseCharacter;
                     }
                 } else
                 {
+                    // Set currently damaging
                     internals.damaging = true;
                     internals.currentlyDamaging = baseCharacter;
                 }

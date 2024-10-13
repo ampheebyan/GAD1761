@@ -7,6 +7,7 @@ using UnityEngine.AI;
 public class EnemyAI : BasePlayer
 {
     [Header("EnemyAI Properties")]
+    // Speed, time of interest, etc
     public float speed = 5f;
     public float interestTime = 10f;
     public Transform patrolPositions;
@@ -14,9 +15,11 @@ public class EnemyAI : BasePlayer
     public List<Transform> patrolList = new List<Transform>();
 
     [Header("EnemyAI Damage Properties")]
+    // How much it should damage in a range
     public Vector2 damage = new Vector2(2, 6);
     public float damageSpeed = 0.5f;
 
+    // Internals
     private float internalInterestTimer = 0f;
     private float internalDamageTimer = 0f;
     private NavMeshAgent agent;
@@ -33,6 +36,7 @@ public class EnemyAI : BasePlayer
             agent.speed = speed;
         }
 
+        // Create list of patrol positions from children.
         if(patrolPositions != null)
         {
             foreach(Transform pos in patrolPositions)
@@ -50,13 +54,15 @@ public class EnemyAI : BasePlayer
     }
     private void Update()
     {
-        if(target != null)
+        if(target != null) // Do we have a player target?
         {
+            // Yep. Follow them.
             agent.SetDestination(target.transform.position);
             target.TryGetComponent<ExtPlayer>(out player);
 
             if (!hitboxTrigger)
             {
+                // If not hitting currently, start interestTimer, and if hits max time, stop interest
                 if(internalInterestTimer < interestTime)
                 {
                     internalInterestTimer += Time.deltaTime;
@@ -78,11 +84,12 @@ public class EnemyAI : BasePlayer
         {
             if((agent.remainingDistance <= 0 || agent.velocity.magnitude < 0.15f) && patrolList.Count > 0)
             {
+                // Random patrolling positions
                 agent.SetDestination(patrolList[Random.Range(0, patrolList.Count)].position);
             }
         }
 
-        if(damaging && target != null)
+        if(damaging && target != null) // Handle damaging whatever is hit
         {
             if (internalDamageTimer >= damageSpeed)
             {

@@ -39,13 +39,4 @@ public class BasePlayer : BaseCharacter
         if (deathLock == true) return;
         deathLock = true;
     }
-
-    private void Update()
-    {
-        if(health.x <= 0 && !deathLock)
-        {
-            deathLock = true;
-            //OnDeath();
-        }
-    }
 }

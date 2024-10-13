@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class OTEnInteract : BaseInteraction
 {
+    // Simple interactable object that fires UnityEvent if trigger entered.
     public bool onlyPlayer = false;
     public void OnTriggerEnter (Collider other)
     {
