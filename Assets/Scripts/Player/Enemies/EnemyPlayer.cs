@@ -8,6 +8,7 @@ public class EnemyPlayer : BasePlayer
     {
         base.OnDeath();
 
+        Debug.Log("EnemyPlayer: OnDeath()");
         Destroy(transform.parent.gameObject);
     }
 

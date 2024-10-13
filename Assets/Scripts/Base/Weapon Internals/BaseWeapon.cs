@@ -33,7 +33,12 @@ public class BaseWeapon : MonoBehaviour
     public virtual void HandleDamage(Collider other) {
         if(other.gameObject.CompareTag("Player")) {
             if(other.gameObject.TryGetComponent<BasePlayer>(out BasePlayer player)) {
-                player.RemoveHealth(damageOutput);                
+                player.RemoveHealth(damageOutput);  
+                
+                if(player.GetHealth().x <= 0)
+                {
+                    player.OnDeath();
+                }
             }
         }
     }

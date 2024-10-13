@@ -37,7 +37,6 @@ public class PlayerWeaponHandler : MonoBehaviour
             }
         }
     }
-
     public void StartShooting() {
         currentWeapon.OnStartShoot();
         shootingTrigger = true;

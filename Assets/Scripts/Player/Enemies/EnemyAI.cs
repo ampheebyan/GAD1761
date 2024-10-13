@@ -4,7 +4,7 @@ using UnityEditor;
 using UnityEngine;
 using UnityEngine.AI;
 
-public class EnemyAI : MonoBehaviour
+public class EnemyAI : BasePlayer
 {
     [Header("EnemyAI Properties")]
     public float speed = 5f;
@@ -16,7 +16,6 @@ public class EnemyAI : MonoBehaviour
     [Header("EnemyAI Damage Properties")]
     public Vector2 damage = new Vector2(2, 6);
     public float damageSpeed = 0.5f;
-    public bool damaging = false;
 
     private float internalInterestTimer = 0f;
     private float internalDamageTimer = 0f;
@@ -88,6 +87,7 @@ public class EnemyAI : MonoBehaviour
             if (internalDamageTimer >= damageSpeed)
             {
                 player.RemoveHealth(Random.Range(damage.x, damage.y));
+                if (player.GetHealth().x <= 0) player.OnDeath();
                 internalDamageTimer = 0f;
             } else
             {

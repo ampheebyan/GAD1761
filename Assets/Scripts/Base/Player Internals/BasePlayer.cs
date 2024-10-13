@@ -2,15 +2,16 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class BasePlayer : MonoBehaviour
+public class BasePlayer : BaseCharacter
 {
     [Header("BasePlayer Properties")]
     // This should be visible in the inpsector.
     [SerializeField]
     private Vector2 health = new Vector2(100f, 100f);
 
-    #region Health
+    private bool deathLock = false;
 
+    #region Health
     // Helper functions to get/set health.
     public Vector2 GetHealth()
     {
@@ -35,14 +36,16 @@ public class BasePlayer : MonoBehaviour
 
     public virtual void OnDeath()
     {
-
+        if (deathLock == true) return;
+        deathLock = true;
     }
 
     private void Update()
     {
-        if(health.x <= 0)
+        if(health.x <= 0 && !deathLock)
         {
-            OnDeath();
+            deathLock = true;
+            //OnDeath();
         }
     }
 }

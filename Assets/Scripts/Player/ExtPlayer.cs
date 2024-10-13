@@ -57,6 +57,9 @@ public class ExtPlayer : BasePlayer
 
     public override void OnDeath()
     {
+        base.OnDeath();
+        Debug.Log("ExtPlayer: OnDeath()");
+        
         GlobalReferences.movementHandler.enabled = false;
         GlobalReferences.localPlayerWeapons.enabled = false;
     }
