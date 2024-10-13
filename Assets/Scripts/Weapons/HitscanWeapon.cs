@@ -9,7 +9,6 @@ public class HitscanWeapon : BaseWeapon
     public float fireRange = 5f;
     public GameObject hitPoint;
     public GameObject debugVisual;
-
     public virtual void HitPoint(RaycastHit hit)
     {
         if (hitPoint != null)

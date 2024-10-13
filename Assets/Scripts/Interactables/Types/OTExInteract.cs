@@ -5,7 +5,7 @@ using UnityEngine;
 public class OTExInteract : BaseInteraction
 {
     public bool onlyPlayer = false;
-    public void OnTriggerExit(Collider other)
+    public void OnTriggerExit (Collider other)
     {
         if (onlyPlayer)
         {

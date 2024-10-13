@@ -1318,7 +1318,7 @@ GameObject:
   - component: {fileID: 805261295}
   - component: {fileID: 805261294}
   - component: {fileID: 805261293}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Unlock Cannon
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1726,6 +1726,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ac906450f7f8244819249c36d6e8a5cf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  maxRange: 5
+  interactionCooldown: 3
 --- !u!1 &1105117930
 GameObject:
   m_ObjectHideFlags: 0
@@ -2250,9 +2252,9 @@ GameObject:
   - component: {fileID: 1225559367}
   - component: {fileID: 1225559366}
   - component: {fileID: 1225559365}
-  - component: {fileID: 1225559370}
   - component: {fileID: 1225559369}
-  m_Layer: 0
+  - component: {fileID: 1225559370}
+  m_Layer: 6
   m_Name: Unlock Shotgun
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2366,7 +2368,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 1225559364}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 355c88b5f024f4d2189f0c0e070879a5, type: 3}
+  m_Script: {fileID: 11500000, guid: f9f9416f4f8974d9fb33327f2390a46b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   onTrigger:
@@ -2391,12 +2393,11 @@ MonoBehaviour:
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 1
+          m_IntArgument: 0
           m_FloatArgument: 0
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-  onlyPlayer: 1
 --- !u!1 &1331553560
 GameObject:
   m_ObjectHideFlags: 0
@@ -2673,7 +2674,7 @@ MonoBehaviour:
   m_LayerMask:
     serializedVersion: 2
     m_Bits: 55
-  m_UseGeometry: 1
+  m_UseGeometry: 0
   m_DefaultArea: 0
   m_GenerateLinks: 0
   m_IgnoreNavMeshAgent: 1
@@ -2883,6 +2884,7 @@ GameObject:
   - component: {fileID: 1906805524}
   - component: {fileID: 1906805525}
   - component: {fileID: 1906805526}
+  - component: {fileID: 1906805527}
   m_Layer: 3
   m_Name: Player
   m_TagString: Player
@@ -3009,6 +3011,7 @@ MonoBehaviour:
   jumpKey: 32
   sprintKey: 304
   dashKey: 304
+  interactKey: 101
   currentMovementZone: {fileID: 0}
 --- !u!114 &1906805525
 MonoBehaviour:
@@ -3022,6 +3025,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bc9aaf11133924d15847de978609cfd1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  damaging: 0
+  currentlyDamaging: {fileID: 0}
   health: {x: 100, y: 100}
   stamina: {x: 20, y: 20}
   staminaResetSpeed: 0.75
@@ -3052,6 +3057,20 @@ CharacterController:
   m_SkinWidth: 0.08
   m_MinMoveDistance: 0.001
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &1906805527
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1906805519}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ac906450f7f8244819249c36d6e8a5cf, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  maxRange: 5
+  interactionCooldown: 3
 --- !u!1 &1911954748
 GameObject:
   m_ObjectHideFlags: 0

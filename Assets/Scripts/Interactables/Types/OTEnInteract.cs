@@ -5,7 +5,7 @@ using UnityEngine;
 public class OTEnInteract : BaseInteraction
 {
     public bool onlyPlayer = false;
-    public void OnTriggerEnter(Collider other)
+    public void OnTriggerEnter (Collider other)
     {
         if (onlyPlayer)
         {

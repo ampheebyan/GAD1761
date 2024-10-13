@@ -5,11 +5,14 @@ using UnityEngine;
 public class ColliderInteract : BaseInteraction
 {
     public bool onlyPlayer = false;
-    public void OnCollisionEnter(Collision other) {
-        if(onlyPlayer) {
+    public void OnCollisionEnter (Collision other)
+    {
+        if (onlyPlayer) 
+        {
             if(other.gameObject.CompareTag("Player"))
                 onTrigger.Invoke();
-        } else {
+        } else 
+        {
             onTrigger.Invoke();
         }
     }

@@ -54,8 +54,10 @@ public class MovementHandler : MonoBehaviour
     public KeyCode jumpKey = KeyCode.Space;
     public KeyCode sprintKey = KeyCode.LeftShift;
     public KeyCode dashKey = KeyCode.LeftShift;
+    public KeyCode interactKey = KeyCode.E;
 
     // Completely non-public variables.
+    private InteractionHandler interactionHandler;
     private CharacterController characterController;
     [SerializeField]
     private MovementZoneInfo currentMovementZone;
@@ -75,14 +77,23 @@ public class MovementHandler : MonoBehaviour
     private bool cursorLocked = false;
     public void Awake() 
     {
-        if(!TryGetComponent<CharacterController>(out characterController)) {
+        if (!TryGetComponent<CharacterController>(out characterController)) 
+        {
             throw new System.Exception("No character controller on Player object!");
-        } else {
+        } 
+        else 
+        {
             defaultHeight = characterController.height;
         }
 
-        if(!TryGetComponent<ExtPlayer>(out extendedPlayer)) {
+        if (!TryGetComponent<ExtPlayer>(out extendedPlayer))
+        {
             throw new System.Exception("No ExtPlayer on Player object!");
+        }
+
+        if (!TryGetComponent<InteractionHandler>(out interactionHandler))
+        {
+            throw new System.Exception("No InteractionHandler on Player object!");
         }
 
         defaultCamPos = playerCamera.transform.localPosition;
@@ -212,6 +223,8 @@ public class MovementHandler : MonoBehaviour
         };
 
         isGrounded = characterController.isGrounded;
+
+        if (Input.GetKeyDown(interactKey)) interactionHandler.Raycast();
 
         MouseLockHandler();
         MouseLook(mouse);
