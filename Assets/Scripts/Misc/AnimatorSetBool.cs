@@ -8,6 +8,11 @@ public class AnimatorSetBool : MonoBehaviour
     public Animator animator;
     public string boolName;
 
+    private bool defaultState;
+    private void Awake()
+    {
+        if(animator && !System.String.IsNullOrEmpty(boolName)) defaultState = animator.GetBool(boolName);
+    }
     public void SetBool(bool value)
     {
         animator.SetBool(boolName, value);
