@@ -11,6 +11,9 @@ public class HitscanShotgunWeapon : HitscanWeapon
     public override void Shoot()
     {
         base.Shoot(); // Trigger base.Shoot();
+
+        // If reload ignore (safety measure)
+        if (reloading) return;
         if (delay >= fireRate)
         {
             ResetDelay();
