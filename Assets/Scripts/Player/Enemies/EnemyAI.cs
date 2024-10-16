@@ -19,6 +19,10 @@ public class EnemyAI : BasePlayer
     public Vector2 damage = new Vector2(2, 6);
     public float damageSpeed = 0.5f;
 
+    [Header("Weapon Type")]
+    public bool meleeOrRanged = false;
+    public BaseWeapon ranged;
+
     // Internals
     private float internalInterestTimer = 0f;
     private float internalDamageTimer = 0f;
@@ -89,16 +93,50 @@ public class EnemyAI : BasePlayer
             }
         }
 
-        if(damaging && target != null) // Handle damaging whatever is hit
+        if(meleeOrRanged == true)
         {
-            if (internalDamageTimer >= damageSpeed)
+            Debug.Log("melee!");
+            if (damaging && target != null) // Handle damaging whatever is hit
             {
-                player.RemoveHealth(Random.Range(damage.x, damage.y));
-                if (player.GetHealth().x <= 0) player.OnDeath();
-                internalDamageTimer = 0f;
-            } else
+                    if (internalDamageTimer >= damageSpeed)
+                    {
+                        player.RemoveHealth(Random.Range(damage.x, damage.y));
+                        if (player.GetHealth().x <= 0) player.OnDeath();
+                        internalDamageTimer = 0f;
+                    }
+                    else
+                    {
+                        internalDamageTimer += Time.deltaTime;
+                    }
+            }
+        } else
+        {
+            Debug.Log("ranged!");
+            if(target != null)
             {
-                internalDamageTimer += Time.deltaTime;
+
+                if(Physics.Raycast(transform.position, transform.forward, out RaycastHit info, 15)) {
+                    if(info.collider.TryGetComponent<BasePlayer>(out BasePlayer player))
+                    {
+                        Debug.Log("shoot?");
+                        if(ranged.ammo.x == 0)
+                        {
+                            bool chance = Random.Range(1, 3) == 2;
+                            if (chance && ranged.reloading == false) ranged.Reload();
+                        } else
+                        {
+                            if (internalDamageTimer >= damageSpeed)
+                            {
+                                ranged.Shoot();
+                                internalDamageTimer = 0f;
+                            }
+                            else
+                            {
+                                internalDamageTimer += Time.deltaTime;
+                            }
+                        }
+                    }
+                }
             }
         }
     }

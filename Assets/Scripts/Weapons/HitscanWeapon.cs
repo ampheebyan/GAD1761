@@ -1,12 +1,12 @@
 using System.Collections;
 using System.Collections.Generic;
-using UnityEditor.PackageManager;
 using UnityEngine;
 
 public class HitscanWeapon : BaseWeapon
 {
     [Header("HitscanWeapon Properties")]
     public float fireRange = 5f;
+    public Transform cameraPos;
     public GameObject hitPoint;
     public GameObject debugVisual;
 

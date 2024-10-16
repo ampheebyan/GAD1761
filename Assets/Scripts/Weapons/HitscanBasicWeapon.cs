@@ -1,6 +1,5 @@
 using System.Collections;
 using System.Collections.Generic;
-using UnityEditor.PackageManager;
 using UnityEngine;
 
 public class HitscanBasicWeapon : HitscanWeapon
@@ -21,7 +20,7 @@ public class HitscanBasicWeapon : HitscanWeapon
             ammo.x = Mathf.Clamp(ammo.x - 1, 0, ammo.y);
 
             // Raycast to find player from center of camera.
-            if (Physics.Raycast(Camera.main.ViewportPointToRay(new Vector3(0.5f,0.5f)), out RaycastHit hit, fireRange))
+            if (Physics.Raycast(cameraPos != null ? new Ray(cameraPos.position, cameraPos.forward) : Camera.main.ViewportPointToRay(new Vector3(0.5f,0.5f)), out RaycastHit hit, fireRange))
             {
                 if(hit.collider.gameObject.TryGetComponent<BasePlayer>(out BasePlayer player))
                 {
