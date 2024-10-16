@@ -95,7 +95,6 @@ public class EnemyAI : BasePlayer
 
         if(meleeOrRanged == true)
         {
-            Debug.Log("melee!");
             if (damaging && target != null) // Handle damaging whatever is hit
             {
                     if (internalDamageTimer >= damageSpeed)
@@ -111,14 +110,12 @@ public class EnemyAI : BasePlayer
             }
         } else
         {
-            Debug.Log("ranged!");
             if(target != null)
             {
 
                 if(Physics.Raycast(transform.position, transform.forward, out RaycastHit info, 15)) {
                     if(info.collider.TryGetComponent<BasePlayer>(out BasePlayer player))
                     {
-                        Debug.Log("shoot?");
                         if(ranged.ammo.x == 0)
                         {
                             bool chance = Random.Range(1, 3) == 2;
