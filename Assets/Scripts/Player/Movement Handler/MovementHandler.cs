@@ -70,6 +70,7 @@ public class MovementHandler : MonoBehaviour
     private Vector3 startingTransform;
     private Quaternion startingRotation;
 
+    [SerializeField]
     private Vector2 rot;
     private Vector3 playerVelocity;
 

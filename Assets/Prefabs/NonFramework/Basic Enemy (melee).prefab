@@ -352,7 +352,7 @@ GameObject:
   - component: {fileID: 1778823513986988526}
   - component: {fileID: 3583724358094509465}
   m_Layer: 3
-  m_Name: Simple Enemy (no debug)
+  m_Name: Basic Enemy (melee)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -464,12 +464,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   damaging: 0
   currentlyDamaging: {fileID: 0}
-  health: {x: 100, y: 100}
+  health: {x: 25, y: 25}
   speed: 5
   interestTime: 10
   patrolPositions: {fileID: 0}
   patrolList: []
-  damage: {x: 2, y: 6}
+  damage: {x: 2, y: 4}
   damageSpeed: 0.5
   meleeOrRanged: 1
   ranged: {fileID: 0}

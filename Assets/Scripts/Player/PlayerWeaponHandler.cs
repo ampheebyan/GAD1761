@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
+using UnityEngine.Events;
 
 public class PlayerWeaponHandler : MonoBehaviour
 {
@@ -12,6 +13,7 @@ public class PlayerWeaponHandler : MonoBehaviour
 
     public bool currentLock = false;
     public bool shootingTrigger = false;
+    public UnityEvent onWeaponChanged;
 
     private void Awake()
     {
@@ -76,6 +78,8 @@ public class PlayerWeaponHandler : MonoBehaviour
         
         // Show current
         currentWeapon.gameObject.SetActive(true);
+
+        onWeaponChanged.Invoke();
     }
 
     
