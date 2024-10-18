@@ -63,7 +63,7 @@ public class PlayerWeaponHandler : MonoBehaviour
         // If weapon is above weapons.Length stop
         if (newWeapon > weapons.Length - 1) return;
         // If weapon is the same stop
-        if (newWeapon == currentWeaponNum) return;
+        if (newWeapon == currentWeaponNum && weapons[newWeapon].gameObject.activeSelf == true) return;
         // If weapon not unlocked stop
         if (weapons[newWeapon].unlocked == false) return;
         
