@@ -13,8 +13,9 @@ public class ProjectileWeapon : BaseWeapon
     public override void Shoot()
     {
         base.Shoot();
-
-        if(delay >= fireRate) {
+        // If reload ignore (safety measure)
+        if (reloading) return;
+        if (delay >= fireRate) {
 
             ResetDelay();
             if(ammo.x == 0) return; // If ammo is 0, stop
